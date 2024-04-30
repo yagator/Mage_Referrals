@@ -1,0 +1,20 @@
+{
+    "name": "yagator/referrals",
+    "description": "Magento Referrals module, test for WolfSellers",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "require": {
+        "magento/module-customer-sample-data": "100.4.*"
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Yagator/Referrals"
+            ]
+        ]
+    }
+}

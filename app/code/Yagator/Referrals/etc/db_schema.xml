@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="referral">
+        <column xsi:type="int" name="entity_id" nullable="false" unsigned="true" identity="true" comment="Primary key entity_id autoincrement"/>
+        <column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="Firstname of referral"/>
+        <column xsi:type="varchar" name="lastname" nullable="true" length="255" comment="Lastname of referral"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Unique e-mail address of referral"/>
+        <column xsi:type="varchar" name="phone" nullable="true" comment="Phone not required of referral"/>
+        <column xsi:type="smallint" name="status" nullable="false" default="0" comment="Status (pending|registered)"/>
+        <column xsi:type="int" name="customer_id" nullable="false" unsigned="true" comment="Foreign key to customer_entity"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="REFERRAL_EMAIL_UNIQUE">
+            <column name="email"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="REFERRAL_ENTITY_ID_CUSTOMER_ENTITY_ENTITY_ID_CONSTRAINT"
+                    table="referral" column="entity_id" referenceTable="customer_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>

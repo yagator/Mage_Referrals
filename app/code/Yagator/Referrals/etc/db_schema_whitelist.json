@@ -1,0 +1,18 @@
+{
+    "referral": {
+        "column": {
+            "entity_id": true,
+            "firstname": true,
+            "lastname": true,
+            "email": true,
+            "phone": true,
+            "status": true,
+            "customer_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "REFERRAL_EMAIL": true,
+            "REFERRAL_ENTITY_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}
