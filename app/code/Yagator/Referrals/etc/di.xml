@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Yagator\Referrals\Api\ReferralRepositoryInterface" type="Yagator\Referrals\Model\ReferralRepository" />
+    <preference for="Yagator\Referrals\Api\Data\ReferralInterface" type="Yagator\Referrals\Model\Referral" />
+    <preference for="Yagator\Referrals\Api\Data\ReferralSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+</config>
