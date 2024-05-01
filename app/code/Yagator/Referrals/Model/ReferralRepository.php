@@ -51,7 +51,7 @@ class ReferralRepository implements ReferralRepositoryInterface
         ReferralCollectionFactory $collectionFactory,
         ReferralFactory $referralFactory,
         ReferralInterfaceFactory $referralInterfaceFactory,
-        ReferralSearchResultsInterface $searchResultsFactory
+        ReferralSearchResultsInterfaceFactory $searchResultsFactory
     ){
         $this->collectionProcessor = $collectionProcessor;
         $this->resource = $resource;

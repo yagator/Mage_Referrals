@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <title>My Referrals</title>
+    </head>
+    <body>
+        <referenceBlock name="customer-account-navigation-referrals-link">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Yagator\Referrals\Block\Referrals" name="customer_referrals_view" template="Yagator_Referrals::referrals/view.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>
