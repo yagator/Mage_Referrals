@@ -113,7 +113,7 @@
         </div>
         <div class="limiter">
             <strong class="limiter-label"><?php echo __('Show'); ?></strong>
-            <select id="limiter" class="limiter-options">
+            <select id="referral-limiter" class="limiter-options">
                 <?php foreach ($block->getSizesOptions() as $option): ?>
                 <option value="<?php echo $block->buildUrlParams($block->getCurrentPage(), $option, $block->getCurrentSearch())?>" <?php echo ($block->currentPageSize() == $option ? 'selected="selected"' : ''); ?>>
                     <?php echo $option; ?>
@@ -124,3 +124,10 @@
         </div>
     </div>
 </div>
+<script>
+    require(['jquery', 'domReady!'],function($){
+        $("#referral-limiter").change(function (){
+            document.location = $(this).val();
+        });
+    });
+</script>
