@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Yagator\Referrals\Block;
 
@@ -134,7 +135,7 @@ class Referrals extends \Magento\Customer\Block\Account\Customer
      */
     public function getStatus($status)
     {
-        return $this->helper->getStatus($status);
+        return $this->helper->getStatus((int)$status);
     }
 
     public function getTotalReferrals(){

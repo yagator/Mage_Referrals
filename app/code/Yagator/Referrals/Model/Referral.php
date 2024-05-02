@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Yagator\Referrals\Model;
 
@@ -26,7 +27,7 @@ class Referral extends AbstractExtensibleModel implements ReferralInterface, Ide
      */
     public function getEntityId(): int
     {
-        return $this->getData(self::ENTITY_ID);
+        return (int) $this->getData(self::ENTITY_ID);
     }
 
 
@@ -121,7 +122,7 @@ class Referral extends AbstractExtensibleModel implements ReferralInterface, Ide
      */
     public function getStatus(): int
     {
-        return $this->getData(self::STATUS);
+        return (int)$this->getData(self::STATUS);
     }
 
 
@@ -140,7 +141,7 @@ class Referral extends AbstractExtensibleModel implements ReferralInterface, Ide
      */
     public function getCustomerId(): int
     {
-        return $this->getData(self::CUSTOMER_ID);
+        return (int) $this->getData(self::CUSTOMER_ID);
     }
 
 

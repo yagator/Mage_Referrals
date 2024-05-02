@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Yagator\Referrals\Controller\Account;
 
@@ -79,7 +80,7 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
             } else {
                 $referral
                     ->setStatus(Referral::PENDING)
-                    ->setCustomerId($this->customerSession->getCustomerId());
+                    ->setCustomerId((int) $this->customerSession->getCustomerId());
             }
             $email = $this->getRequest()->getParam('email');
             if (filter_var($email, FILTER_VALIDATE_EMAIL) === false){
