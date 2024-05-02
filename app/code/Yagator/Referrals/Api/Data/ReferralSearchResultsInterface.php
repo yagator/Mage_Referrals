@@ -3,16 +3,17 @@
 namespace Yagator\Referrals\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
+
 interface ReferralSearchResultsInterface extends SearchResultsInterface
 {
     /**
-     * @return mixed
+     * @return \Yagator\Referrals\Api\Data\ReferralInterface[]
      */
     public function getItems();
 
     /**
-     * @param array $items
-     * @return mixed
+     * @param \Yagator\Referrals\Api\Data\ReferralInterface[] $items
+     * @return $this
      */
     public function setItems(array $items);
 }

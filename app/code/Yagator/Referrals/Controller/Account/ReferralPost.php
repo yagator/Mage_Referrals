@@ -9,8 +9,11 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Framework\Mail\Template\TransportBuilder;
 use Yagator\Referrals\Api\ReferralRepositoryInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Yagator\Referrals\Model\ReferralFactory;
+use Yagator\Referrals\Model\Referral;
 
 class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implements HttpPostActionInterface
 {
@@ -30,6 +33,8 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
      * @var CustomerSession
      */
     protected $customerSession;
+    protected $transportBuilder;
+    protected $storeManager;
 
     /**
      * @var PageFactory
@@ -41,6 +46,8 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
         ReferralFactory $referralFactory,
         ManagerInterface $messageManager,
         CustomerSession $customerSession,
+        TransportBuilder $transportBuilder,
+        StoreManagerInterface $storeManager,
         PageFactory $page_factory,
         Context $context
     ){
@@ -48,6 +55,8 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
         $this->referralFactory = $referralFactory;
         $this->messageManager = $messageManager;
         $this->customerSession = $customerSession;
+        $this->transportBuilder = $transportBuilder;
+        $this->storeManager = $storeManager;
         $this->page_factory = $page_factory;
         parent::__construct($context);
     }
@@ -69,17 +78,26 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
                 }
             } else {
                 $referral
-                    ->setStatus(0)
+                    ->setStatus(Referral::PENDING)
                     ->setCustomerId($this->customerSession->getCustomerId());
+            }
+            $email = $this->getRequest()->getParam('email');
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false){
+                $this->messageManager->addErrorMessage('Email has a wrong format');
+                $this->_redirect('*/*/referrals');
+                return;
             }
             $referral
                 ->setFirstname($this->getRequest()->getParam('firstname'))
                 ->setLastname($this->getRequest()->getParam('lastname'))
-                ->setEmail($this->getRequest()->getParam('email'))
+                ->setEmail($email)
                 ->setPhone($this->getRequest()->getParam('phone'));
             try {
-                $this->referralRepository->save($referral);
+                $referral = $this->referralRepository->save($referral);
                 $this->messageManager->addSuccessMessage('Referral saved successfully.');
+                if (!$referral_id) {
+                    $this->_sendMail($referral);
+                }
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
                 $this->_redirect('*/*/referraledit');
@@ -92,5 +110,32 @@ class ReferralPost extends \Magento\Customer\Controller\AbstractAccount implemen
 
         $this->_redirect('*/*/referrals');
         return null;
+    }
+
+    private function _sendMail(Referral $referral){
+        $recipient_address = $referral->getEmail();
+        $recipient_name = $referral->getFirstname();
+        $from_address = [
+            'name' =>  $this->customerSession->getCustomerData()->getFirstname(),
+            'email' => $this->customerSession->getCustomerData()->getEmail()
+        ];
+        $vars = [
+            'firstname' => $referral->getFirstname(),
+            'customerName' => $this->customerSession->getCustomerData()->getFirstname(),
+            'validate_link' => $this->_url->getUrl('*/*/referralvalidate', ['referral_id' => $referral->getEntityId()])
+        ];
+        $this->transportBuilder->setTemplateIdentifier(
+            'new_referral_registered', \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            )->setTemplateOptions([
+                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+                'store' => $this->storeManager->getStore()->getId()
+            ])->setTemplateVars($vars)->setFromByScope($from_address)->addTo($recipient_address, $recipient_name);
+        $transport = $this->transportBuilder->getTransport();
+
+        try {
+            $transport->sendMessage();
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage($e->getMessage());
+        }
     }
 }

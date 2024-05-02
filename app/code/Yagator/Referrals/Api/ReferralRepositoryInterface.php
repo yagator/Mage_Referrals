@@ -17,14 +17,14 @@ interface ReferralRepositoryInterface
     public function save(ReferralInterface $referral): ReferralInterface;
 
     /**
-     * @param $referralId
+     * @param int $referralId
      * @return ReferralInterface
      */
     public function getById($referralId): ReferralInterface;
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return mixed
+     * @return ReferralSearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 
@@ -35,7 +35,7 @@ interface ReferralRepositoryInterface
     public function delete(ReferralInterface $referral): bool;
 
     /**
-     * @param $referralId
+     * @param int $referralId
      * @return bool
      */
     public function deleteById($referralId): bool   ;

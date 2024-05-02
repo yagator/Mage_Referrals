@@ -1,0 +1,15 @@
+<!--@subject {{trans "Someone has invited you to join our referral program"}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="float:left; margin-right: 10px" class="fue-abc-items">
+    <tr>
+        <td>
+            <div class="greeting">Hi {{var firstname}},</div>
+            <div>
+                <p>{{trans "%customer has invited you to join us in our referral program. " customer=$customerName}},</p>
+                <p>{{trans "Just click on the link below and you're done:"}}</p>
+                <p><a href="{{var validate_link}}" >Validate email</a> </p>
+            </div>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

@@ -9,124 +9,153 @@ use Magento\Framework\Model\AbstractExtensibleModel;
 class Referral extends AbstractExtensibleModel implements ReferralInterface, IdentityInterface
 {
     const CACHE_TAG = 'yagator_referrals';
+    const PENDING = 0;
+    const REGISTERED = 1;
 
+    /**
+     * @return void
+     */
     public function _construct()
     {
         $this->_init(ResourceModel\Referral::class);
     }
 
+
     /**
-     * @inheritDoc
+     * @return int
      */
     public function getEntityId(): int
     {
         return $this->getData(self::ENTITY_ID);
     }
 
+
     /**
-     * @inheritDoc
+     * @param $entity_id
+     * @return ReferralInterface
      */
     public function setEntityId($entity_id): ReferralInterface
     {
         return $this->setData(self::ENTITY_ID, $entity_id);
     }
 
+
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getFirstname(): string
     {
         return $this->getData(self::FIRSTNAME);
     }
 
+
     /**
-     * @inheritDoc
+     * @param string $firstname
+     * @return ReferralInterface
      */
     public function setFirstname(string $firstname): ReferralInterface
     {
         return $this->setData(self::FIRSTNAME, $firstname);
     }
 
+
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getLastname(): string
     {
         return $this->getData(self::LASTNAME);
     }
 
+
     /**
-     * @inheritDoc
+     * @param string $lastname
+     * @return ReferralInterface
      */
     public function setLastname(string $lastname): ReferralInterface
     {
         return $this->setData(self::LASTNAME, $lastname);
     }
 
+
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getEmail(): string
     {
         return $this->getData(self::EMAIL);
     }
 
+
     /**
-     * @inheritDoc
+     * @param string $email
+     * @return ReferralInterface
      */
     public function setEmail(string $email): ReferralInterface
     {
         return $this->setData(self::EMAIL, $email);
     }
 
+
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getPhone(): string
     {
         return $this->getData(self::PHONE);
     }
 
+
     /**
-     * @inheritDoc
+     * @param string $phone
+     * @return ReferralInterface
      */
     public function setPhone(string $phone): ReferralInterface
     {
         return $this->setData(self::PHONE, $phone);
     }
 
+
     /**
-     * @inheritDoc
+     * @return int
      */
     public function getStatus(): int
     {
         return $this->getData(self::STATUS);
     }
 
+
     /**
-     * @inheritDoc
+     * @param int $status
+     * @return ReferralInterface
      */
     public function setStatus(int $status): ReferralInterface
     {
         return $this->setData(self::STATUS, $status);
     }
 
+
     /**
-     * @inheritDoc
+     * @return int
      */
     public function getCustomerId(): int
     {
         return $this->getData(self::CUSTOMER_ID);
     }
 
+
     /**
-     * @inheritDoc
+     * @param int $customer_id
+     * @return ReferralInterface
      */
     public function setCustomerId(int $customer_id): ReferralInterface
     {
         return $this->setData(self::CUSTOMER_ID, $customer_id);
     }
 
+    /**
+     * @return string[]
+     */
     public function getIdentities()
     {
         return [self::CACHE_TAG . '_' . $this->getEntityId()];

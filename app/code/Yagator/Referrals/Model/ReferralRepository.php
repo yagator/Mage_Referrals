@@ -45,6 +45,14 @@ class ReferralRepository implements ReferralRepositoryInterface
      */
     private $searchResultsFactory;
 
+    /**
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param ResourceModelReferral $resource
+     * @param ReferralCollectionFactory $collectionFactory
+     * @param ReferralFactory $referralFactory
+     * @param ReferralInterfaceFactory $referralInterfaceFactory
+     * @param ReferralSearchResultsInterfaceFactory $searchResultsFactory
+     */
     public function __construct(
         CollectionProcessorInterface $collectionProcessor,
         ResourceModelReferral  $resource,
@@ -79,7 +87,7 @@ class ReferralRepository implements ReferralRepositoryInterface
     }
 
     /**
-     * @param $referralId
+     * @param int $referralId
      * @return ReferralInterface
      */
     public function getById($referralId): ReferralInterface
@@ -95,7 +103,7 @@ class ReferralRepository implements ReferralRepositoryInterface
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return mixed
+     * @return ReferralSearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
@@ -125,7 +133,7 @@ class ReferralRepository implements ReferralRepositoryInterface
     }
 
     /**
-     * @param $referralId
+     * @param int $referralId
      * @return bool
      */
     public function deleteById($referralId): bool

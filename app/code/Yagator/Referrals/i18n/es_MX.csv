@@ -12,3 +12,5 @@
 'Save Referral','Guardar Referido'
 'Referral saved successfully.','Referido guardado correctamente.'
 'Referral already exists: Unique constraint violation found','El correo introducido ya existe en nuestra base de datos.'
+'Thanks for registering at our referral program, from now on, you will receive great opportunities and discounts to apply in our store.','Gracias por registrarte en nuestro progrma de referidos, de ahora en adelante recibirás grandes descuentos y oportunidades para aprovechar en nuestra tienda.'
+'Thanks for registering','Gracias por registrarte'

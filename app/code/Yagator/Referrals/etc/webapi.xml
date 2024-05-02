@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/referrals/getReferral/:referralId" method="GET">
+        <service class="Yagator\Referrals\Api\ReferralRepositoryInterface" method="getById" />
+        <resources>
+            <resource ref="Yagator_Referrals::referrals_get" />
+        </resources>
+    </route>
+    <route url="/V1/referrals/getReferrals" method="GET">
+        <service class="Yagator\Referrals\Api\ReferralRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="Yagator_Referrals::referrals_list" />
+        </resources>
+    </route>
+    <route url="/V1/referrals/deleteReferral/:referralId" method="DELETE">
+        <service class="Yagator\Referrals\Api\ReferralRepositoryInterface" method="deleteById" />
+        <resources>
+            <resource ref="Yagator_Referrals::referrals_delete" />
+        </resources>
+    </route>
+    <route url="/V1/referrals/saveReferral" method="POST">
+        <service class="Yagator\Referrals\Api\ReferralRepositoryInterface" method="save" />
+        <resources>
+            <resource ref="Yagator_Referrals::referrals_save" />
+        </resources>
+    </route>
+</routes>

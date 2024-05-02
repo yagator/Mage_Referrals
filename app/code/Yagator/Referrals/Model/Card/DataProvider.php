@@ -2,6 +2,7 @@
 
 namespace Yagator\Referrals\Model\Card;
 
+use Yagator\Referrals\Model\ResourceModel\Referral\Collection;
 use Yagator\Referrals\Model\ResourceModel\Referral\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -16,8 +17,14 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 class DataProvider extends AbstractDataProvider
 {
 
+    /**
+     * @var Collection
+     */
     protected $collection;
 
+    /**
+     * @var
+     */
     protected $loadedData;
 
     /**
