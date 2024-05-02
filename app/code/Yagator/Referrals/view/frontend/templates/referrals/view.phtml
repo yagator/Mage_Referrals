@@ -1,8 +1,126 @@
-<h1>Aqui van los referrals</h1>
 <?php $referrals = $block->getReferrals(); ?>
-<ul>
-    <?php foreach ($referrals as $referral): ?>
-        <li>
-        </li>
-    <?php endforeach; ?>
-</ul>
+<div class="toolbar toolbar-referrals">
+    <div class="search-form">
+        <form class="form search" action="<?php echo $block->buildUrlParams($block->getCurrentPage(), $block->currentPageSize()); ?>" method="GET" name="referral-search-form">
+            <div class="field search-text">
+                <div class="control">
+                    <label for="search">
+                        <span class="label"><?php echo __('Search referral'); ?></span>
+                        <input type="search" name="search" value="<?php echo $block->getCurrentSearch(); ?>" placeholder="<?php echo __('Search referral'); ?>" />
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action search primary" title="Search" type="submit" aria-label="Search">
+                    <span class="icon-search"><span>Search</span></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="new-referral">
+        <a class="action more button" href="<?php echo $block->getNewRefUrl(); ?>"><?php echo __('New Referral'); ?></a>
+    </div>
+</div>
+
+<div class="table-wrapper customer-referrals">
+    <table class="data table table-referrals" id="my-referrals-table">
+        <caption class="table-caption"><?= $block->escapeHtml(__('Referrals')) ?></caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col id"><?= $block->escapeHtml(__('Referral ID')) ?></th>
+            <th scope="col" class="col date"><?= $block->escapeHtml(__('Firstname')) ?></th>
+            <th scope="col" class="col date"><?= $block->escapeHtml(__('Lastname')) ?></th>
+            <th scope="col" class="col total"><?= $block->escapeHtml(__('E-mail')) ?></th>
+            <th scope="col" class="col date"><?= $block->escapeHtml(__('Phone')) ?></th>
+            <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+            <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($referrals as $referral): ?>
+        <tr>
+            <td data-th="<?= $block->escapeHtml(__('Referral ID')) ?>" class="col id">
+                <?php echo $block->escapeHtml($referral->getData('entity_id')); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('Firstname')) ?>" class="col firstname">
+                <?php echo $block->escapeHtml($referral->getData('firstname')); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('Lastname')) ?>" class="col lastname">
+                <?php echo $block->escapeHtml($referral->getData('lastname')); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('E-mail')) ?>" class="col email">
+                <?php echo $block->escapeHtml($referral->getData('email')); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('Phone')) ?>" class="col phone">
+                <?php echo $block->escapeHtml($referral->getData('phone')); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                <?php echo __($block->getStatus($referral->getData('status'))); ?>
+            </td>
+            <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                <a class="action action-edit" href="<?php echo $block->getNewRefUrl($referral->getData('entity_id')); ?>" title="Edit referral parameters">
+                    <span>Edit</span>
+                </a>
+                <a href="<?php echo $block->getDelRefUrl($referral->getData('entity_id')); ?>" title="Remove item" class="action action-delete">
+                    <span>Remove</span>
+                </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="referrals-toolbar toolbar bottom">
+    <div class="pager">
+        <p class="toolbar-amount">
+            <span class="toolbar-number"><?php echo __('%1 Referrals', $block->getTotalReferrals()); ?></span>
+        </p>
+        <div class="pages">
+            <ul class="items pages-items" aria-labelledby="paging-label">
+                <?php if ($block->hasPrevPage()): ?>
+                <li class="item pages-item-previous">
+                    <a class="action  previous" href="<?php echo $block->buildUrlParams($block->getPrevPage(), $block->currentPageSize(), $block->getCurrentSearch())?>" title="Previous">
+                        <span class="label">Page</span>
+                        <span>Previous</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+
+                <?php for ($i=1; $i<=$block->getTotalPages(); $i++): ?>
+                <li class="item current">
+                    <?php if ($block->getCurrentPage() == $i): ?>
+                    <strong class="page">
+                        <span><?php echo $i; ?></span>
+                    </strong>
+                    <?php else: ?>
+                    <a href="<?php echo $block->buildUrlParams($i, $block->currentPageSize(), $block->getCurrentSearch()); ?>" class="page">
+                        <span><?php echo $i; ?></span>
+                    </a>
+                    <?php endif; ?>
+                </li>
+                <?php endfor; ?>
+
+                <?php if ($block->hasNextPage()): ?>
+                <li class="item pages-item-next">
+                    <a class="action  next" href="<?php echo $block->buildUrlParams($block->getNextPage(), $block->currentPageSize(), $block->getCurrentSearch())?>" title="Next">
+                        <span class="label">Page</span>
+                        <span>Next</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <div class="limiter">
+            <strong class="limiter-label"><?php echo __('Show'); ?></strong>
+            <select id="limiter" class="limiter-options">
+                <?php foreach ($block->getSizesOptions() as $option): ?>
+                <option value="<?php echo $block->buildUrlParams($block->getCurrentPage(), $option, $block->getCurrentSearch())?>" <?php echo ($block->currentPageSize() == $option ? 'selected="selected"' : ''); ?>>
+                    <?php echo $option; ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+            <span class="limiter-text"><?php echo __('per page'); ?></span>
+        </div>
+    </div>
+</div>

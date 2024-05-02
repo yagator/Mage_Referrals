@@ -1,0 +1,69 @@
+
+& when (@media-common = true) {
+    .table-wrapper.customer-referrals {
+        .table-referrals {
+            .col.actions {
+                .action-edit {
+                    .lib-icon-font(
+                        @icon-edit,
+                        @_icon-font-size: 20px,
+                        @_icon-font-text-hide: true
+                    );
+                }
+                .action-delete {
+                    .lib-icon-font(
+                        @icon-trash,
+                        @_icon-font-size: 20px,
+                        @_icon-font-text-hide: true
+                    );
+                }
+            }
+        }
+    }
+    .toolbar.toolbar-referrals {
+        text-align: left;
+        .new-referral{
+            display: inline-block;
+        }
+        .search-form {
+            display: inline-block;
+            .form.search {
+                .search-text {
+                    display: inline-block;
+                    .control {
+                        .label {
+                            visibility: hidden;
+                        }
+                        input[type='search'] {}
+                    }
+                }
+                .actions {
+                    display: inline-block;
+                    button.search {
+                        .icon-search {
+                            .lib-icon-font(
+                                @icon-search,
+                                @_icon-font-size: 18px,
+                                @_icon-font-text-hide: true
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+}
+
+//  Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+}
+

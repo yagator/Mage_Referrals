@@ -70,9 +70,9 @@ class ReferralRepository implements ReferralRepositoryInterface
         try {
             $this->resource->save($referral);
         } catch (AlreadyExistsException $e) {
-            throw new CouldNotSaveException('Referral already exists: ' . $e->getMessage(), $e->getCode());
+            throw new CouldNotSaveException(__('Referral already exists: ' . $e->getMessage()), $e, $e->getCode());
         } catch (\Exception $e) {
-            throw new LocalizedException('Unable to save referral: ' . $e->getMessage(), $e->getCode());
+            throw new LocalizedException(__('Unable to save referral: ' . $e->getMessage()), $e, $e->getCode());
         }
 
         return $referral;
@@ -87,7 +87,7 @@ class ReferralRepository implements ReferralRepositoryInterface
         $referral = $this->referralFactory->create();
         $this->resource->load($referral, $referralId);
         if (!$referral->getId()) {
-            throw new NoSuchEntityException(__('Referral with the "%1" ID doesn\'t exist..', $referralId));
+            throw new NoSuchEntityException(__('Referral with the "%1" ID doesn\'t exist.', $referralId));
         }
 
         return $referral;

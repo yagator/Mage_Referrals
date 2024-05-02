@@ -1,0 +1,55 @@
+<?php $referral = $block->getReferral(); ?>
+<div class="row">
+    <form name="addData" method="post" id="addData" class="form"
+          action="<?php echo $this->getFormAction(); ?>"
+          data-hasrequired="<?php echo __('* Required Fields'); ?>"
+          data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <legend class="legend"><span><?php echo __('Fill Detail'); ?></span></legend>
+            <input type="hidden" name="referral_id" value="<?php echo ($block->referralExists() ? $referral->getData('entity_id') : ''); ?>" />
+            <fieldset class="fieldset row">
+                <div class="fields">
+                    <div class="field firstname required">
+                        <label class="label" for="title"><span><?php echo __('Firstname'); ?></span></label>
+                        <div class="control">
+                            <input name="firstname" id="firstname" title="Firstname" class="input-text" type="text"
+                                   value="<?php echo ($block->referralExists() ? $referral->getData('firstname') : ''); ?>"
+                                   data-validate="{required:true}" />
+                        </div>
+                    </div>
+                    <div class="field lastname">
+                        <label class="label" for="title"><span><?php echo __('Lastname'); ?></span></label>
+                        <div class="control">
+                            <input name="lastname" id="lastname" title="Lastname" class="input-text" type="text"
+                                   value="<?php echo ($block->referralExists() ? $referral->getData('lastname') : ''); ?>"
+                                   data-validate="{required:false}" />
+                        </div>
+                    </div>
+                    <div class="field email required">
+                        <label class="label" for="title"><span><?php echo __('Email'); ?></span></label>
+                        <div class="control">
+                            <input name="email" id="email" title="Email" class="input-text" type="text"
+                                   value="<?php echo ($block->referralExists() ? $referral->getData('email') : ''); ?>"
+                                   data-validate="{required:true, 'validate-email':true}">
+                        </div>
+                    </div>
+                    <div class="field phone">
+                        <label class="label" for="title"><span><?php echo __('Phone'); ?></span></label>
+                        <div class="control">
+                            <input name="phone" id="phone" title="Phone" class="input-text" type="tel"
+                                   value="<?php echo ($block->referralExists() ? $referral->getData('phone') : ''); ?>"
+                                   data-validate="{required:false}">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="Save">
+                    <span><?php echo __('Save'); ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

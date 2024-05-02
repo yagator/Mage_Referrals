@@ -4,7 +4,6 @@ namespace Yagator\Referrals\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Magento\Framework\Setup\Patch\PatchInterface;
 use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\File\Csv;
@@ -89,7 +88,13 @@ class Sample implements DataPatchInterface, PatchRevertableInterface
      */
     public function revert()
     {
-        // TODO: Implement revert() method.
+        $connection = $this->moduleDataSetup->getConnection();
+        $connection->startSetup();
+
+        $table = $connection->getTableName('referral');
+        $connection->delete($table);
+
+        $connection->endSetup();
     }
 
     private function getSampleData()

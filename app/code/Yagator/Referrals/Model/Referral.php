@@ -10,6 +10,11 @@ class Referral extends AbstractExtensibleModel implements ReferralInterface, Ide
 {
     const CACHE_TAG = 'yagator_referrals';
 
+    public function _construct()
+    {
+        $this->_init(ResourceModel\Referral::class);
+    }
+
     /**
      * @inheritDoc
      */

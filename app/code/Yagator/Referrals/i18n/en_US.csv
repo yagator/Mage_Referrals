@@ -1,0 +1,3 @@
+'registered','Registered'
+'pending','Pending'
+'Referral already exists: Unique constraint violation found','Referral already exists. Try with another email'
